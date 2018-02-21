@@ -23,6 +23,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'bootstrap', '~> 4.0'
 gem 'clockwork'
 gem 'figaro'
+gem 'httparty'
 gem 'jquery-rails'
 gem 'sidekiq'
 

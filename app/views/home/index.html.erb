@@ -1,2 +1,35 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<header class="navbar justify-content-between">
+  <span class="navbar-brand"><a href="https://trade.io"><%= image_tag "trade_io_LOGO h negative.png" %></a>Development Progress Tracker</span>
+  <a href="https://github.com/tradeio" class="btn btn-light btn-outline">Visit us on GitHub</a>
+</header>
+
+<section class="general-status">
+  <h1>How's it coming?</h1>
+
+  <ul class="general-status-bar">
+    <li class="meh <%= 'active' if @general_status.value['index'] == '0' %>">
+      <h2>=/</h2>
+      <%= image_tag "shame-giphy-social.gif" %>
+    </li>
+    <li class="delayed <%= 'active' if @general_status.value['index'] == '1' %>">
+      <h2>Little Bit Delayed</h2>
+      <%= image_tag "mr-bean-giphy-social.gif" %>
+    </li>
+    <li class="fairly-well <%= 'active' if @general_status.value['index'] == '2' %>">
+      <h2>Fairly Well</h2>
+      <%= image_tag "well-done-giphy-social.gif" %>
+    </li>
+    <li class="pretty-good <%= 'active' if @general_status.value['index'] == '3' %>">
+      <h2>Pretty Good</h2>
+      <%= image_tag "chuck-norris-giphy-downsized.gif" %>
+    </li>
+    <li class="great <%= 'active' if @general_status.value['index'] == '4' %>">
+      <h2>Great!</h2>
+      <%= image_tag "elijah-wood-terrific-giphy-social.gif" %>
+    </li>
+    <li class="fantasmic <%= 'active' if @general_status.value['index'] == '5' %>">
+      <h2>Fantasmic</h2>
+      <%= image_tag "nyan-cat-giphy-downsized.gif" %>
+    </li>
+  </ul>
+</section>

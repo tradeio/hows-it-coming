@@ -1,0 +1,2 @@
+class KeyValuePair < ApplicationRecord
+end

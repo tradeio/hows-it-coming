@@ -3,3 +3,136 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 @import 'bootstrap';
+
+// Variables
+$text-color: hsl(0, 0%, 96%);
+
+html {
+  min-height: 100%;
+  font-size: 16px;
+}
+
+body {
+  background: linear-gradient(150deg, hsl(210, 68%, 33%), hsl(192, 78%, 42%));
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  color: $text-color;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  // font-family: 'Montserrat', sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 500;
+}
+
+.btn-outline {
+  color: $text-color;
+  border: 1px solid $text-color;
+  background: transparent;
+  background-color: transparent;
+  box-sizing: border-box;
+  border-radius: 100px;
+}
+
+header {
+  margin-bottom: 2rem;
+  .navbar-brand {
+    color: hsla(0, 0%, 96%, 0.5);
+    img {
+      max-height: 1.5rem;
+      margin-right: 1rem;
+      position: relative;
+      top: -0.09rem;
+    }
+    &:hover {
+      color: hsla(0, 0%, 96%, 0.5);
+    }
+  }
+}
+
+section.general-status {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  h1 {
+    font-size: 3.2rem;
+  }
+  .general-status-bar {
+    margin-top: 10rem;
+    list-style: none;
+    width:  calc(100% - 8rem);
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    position: relative;
+    height: 0.2rem;
+    align-items: center;
+    background-color: darken($text-color, 5%);
+    padding: 0;
+    li {
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      width: 1rem;
+      height: 1rem;
+      border-radius: 1rem;
+      background: darken($text-color, 5%);
+      h2 {
+        position: absolute;
+        text-align: center;
+        width: fit-content;
+        top: -2rem;
+        font-size: 0.8rem;
+        opacity: 0.5;
+        white-space: nowrap;
+      }
+      img {
+        display: none;
+      }
+      &.active {
+        height: 10rem;
+        width: 10rem;
+        border-radius: 10rem;
+        h2 {
+          font-size: 2.5rem;
+          top: -4rem;
+          opacity: 1;
+        }
+        img {
+          display: block;
+          clip-path: circle(4.8rem);
+          height: 100%;
+          width: auto;
+        }
+        &.meh {
+          color: hsl(12, 50%, 53%);
+        }
+        &.delayed {
+          color: hsl(50, 46%, 58%);
+        }
+        &.fairly-well {
+          color: hsl(169, 64%, 64%);
+        }
+        &.pretty-good {
+          color: hsl(144, 57%, 58%);
+        }
+        &.great {
+          color: hsl(128, 50%, 50%);
+        }
+        &.fantasmic {
+          h2 {
+            background-image: -webkit-linear-gradient(-30deg, #f22 0%, #f4f 15%, #39f 30%, #2ff 45%, #2f2 60%, #ff2 80%, #f22 100%);
+            background-image: linear-gradient(-30deg, #f22 0%, #f4f 15%, #39f 30%, #2ff 45%, #2f2 60%, #ff2 80%, #f22 100%);
+            color:transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+          }
+        }
+      }
+    }
+  }
+}

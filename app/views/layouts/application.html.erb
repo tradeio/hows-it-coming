@@ -1,14 +1,28 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>HowsItComing</title>
+    <title>How's it coming? | Trade.io Development Progress Tracker</title>
     <%= csrf_meta_tags %>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-114406307-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-114406307-1');
+    </script>
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500" rel="stylesheet">
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= yield %>
+    <main class="container-fluid">
+      <%= yield %>
+    </main>
   </body>
 </html>

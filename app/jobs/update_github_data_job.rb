@@ -68,7 +68,8 @@ class UpdateGithubDataJob < ApplicationJob
     # is what we are interested in.  To make it easier to graph, we are going to
     # delete the day and hour elements (flatten via the :collect method) and
     # then convert the array back into a 2D array of 7 rows of 24 integers.
-    punch_card_data = punch_card_response.parsed_response
+    punch_card_raw_data = punch_card_response.parsed_response
+    punch_card_data = punch_card_raw_data.dup
     punch_card_data_workspace = punch_card_data.collect { |e| e[-1] }
     punch_card_data = []
     while !punch_card_data_workspace.empty?
@@ -80,7 +81,8 @@ class UpdateGithubDataJob < ApplicationJob
       'first_five_commits': first_five_commits.to_json,
       'code_frequency_data': code_frequency_data.to_json,
       'commit_activity_data': commit_activity_data.to_json,
-      'punch_card_data': punch_card_data.to_json
+      'punch_card_data': punch_card_data.to_json,
+      'punch_card_raw_data': punch_card_raw_data.to_json
     }
     github_data.save
   end

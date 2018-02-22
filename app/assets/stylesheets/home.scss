@@ -13,7 +13,7 @@ html {
 }
 
 body {
-  background: linear-gradient(150deg, hsl(210, 68%, 33%), hsl(192, 78%, 42%));
+  background: linear-gradient(150deg, hsl(210, 68%, 33%), hsl(198, 77%, 40%));
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -25,6 +25,18 @@ h1, h2, h3, h4, h5, h6 {
   // font-family: 'Montserrat', sans-serif;
   font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 500;
+  &.text-stat {
+    text-align: center;
+    margin: 0;
+  }
+  &.label {
+    font-weight: 300;
+    opacity: 0.75;
+    text-align: center;
+    &.label-below {
+      margin-top: 1rem;
+    }
+  }
 }
 
 .btn-outline {
@@ -36,7 +48,19 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 100px;
 }
 
-header {
+a {
+  color: hsla(210, 60%, 75%, 1);
+}
+
+.chart-container {
+  position: relative;
+}
+
+.space-evenly {
+  justify-content: space-evenly !important;
+}
+
+.navbar {
   margin-bottom: 2rem;
   .navbar-brand {
     color: hsla(0, 0%, 96%, 0.5);
@@ -61,8 +85,9 @@ section.general-status {
   }
   .general-status-bar {
     margin-top: 10rem;
+    margin-bottom: 10rem;
     list-style: none;
-    width:  calc(100% - 8rem);
+    width:  100%;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
@@ -133,6 +158,58 @@ section.general-status {
           }
         }
       }
+    }
+  }
+}
+
+.row {
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4rem;
+}
+
+section.pivotal-stats {
+  .pivotal-percent-complete {
+    .progress {
+      height: 2rem;
+      background: transparent;
+      border: 1px solid $text-color;
+      .progress-bar {
+        background: $text-color;
+      }
+    }
+  }
+  .story-velocity, .weeks-left, .story-velocity-alt, .weeks-left-alt {
+    h1 {
+      font-size: 3.5rem;
+    }
+  }
+}
+
+section.github-stats {
+  span.additions {
+    color: hsla(131, 35%, 50%, 1);
+  }
+  span.deletions {
+    color: hsla(0, 35%, 50%, 1);
+  }
+
+  #punchcard_chart {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    left: -2rem;
+    color: $text-color !important;
+    fill: $text-color !important;
+    circle {
+      fill: $text-color !important;
+    }
+    .x.axis {
+      font-size: 0.75rem;
+      font-weight: 300;
     }
   }
 }

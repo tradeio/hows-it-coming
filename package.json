@@ -1,5 +1,8 @@
 {
   "name": "HowsItComing",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "chart.js": "^2.7.1",
+    "d3-punchcard": "^1.0.1"
+  }
 }

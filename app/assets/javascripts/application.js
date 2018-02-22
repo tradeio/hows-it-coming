@@ -15,4 +15,7 @@
 //= require jquery3
 //= require popper
 //= require bootstrap
+//= require chart.js/dist/Chart.min.js
+//= require d3/d3.min.js
+//= require d3-punchcard/dist/d3-punchcard.min.js
 //= require_tree .

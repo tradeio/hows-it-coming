@@ -14,7 +14,7 @@ puts 'done'
 
 print 'Creating estimated_release... '
 KeyValuePair.find_or_create_by(key: 'estimated_release') do |general_status|
-  general_status.value = {datetime: DateTime.parse('May 1, 2018, 12:00AM EST'), label: 'Early May'}
+  general_status.value = {datetime: DateTime.parse('April 30, 2018, 12:00AM EST'), label: 'Late April'}
 end
 puts 'done'
 

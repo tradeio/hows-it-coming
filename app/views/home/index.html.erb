@@ -1,8 +1,3 @@
-<header class="navbar justify-content-between">
-  <span class="navbar-brand"><a href="https://trade.io"><%= image_tag "trade_io_LOGO h negative.png" %></a>Development Progress Tracker</span>
-  <a href="https://github.com/tradeio" class="btn btn-light btn-outline">Visit us on GitHub</a>
-</header>
-
 <section class="general-status">
   <h1>How's it coming?</h1>
 
@@ -33,3 +28,257 @@
     </li>
   </ul>
 </section>
+
+<section class="pivotal-stats">
+  <div class="row">
+    <div class="pivotal-percent-complete col-md-8">
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: <%= @pivotal_data.value['current_stories_percent_complete'] %>%" aria-valuenow="<%= @pivotal_data.value['current_stories_percent_complete'] %>" aria-valuemin="0" aria-valuemax="100">
+        </div>
+      </div>
+      <h4 class="label label-below">Approximate Percent Complete</h4>
+    </div>
+
+    <div class="estimated-release-date col-md-4 d-flex flex-column">
+      <h1 class="text-stat"><%= @estimated_release.value['label'] %></h1>
+      <h4 class="label label-below">Planned Release Date</h4>
+    </div>
+  </div>
+
+  <div class="row space-evenly">
+    <div class="stories-breakdown col-md-4">
+      <div class="chart-container">
+        <canvas id="stories_breakdown_chart" height="250" width="250">
+        </canvas>
+      </div>
+      <h4 class="label label-below">Stories (To-do Items)</h4>
+    </div>
+
+    <div class="stories-per-week col-md-4">
+      <div class="chart-container">
+        <canvas id="stories_per_week_chart" height="250" width="250">
+        </canvas>
+      </div>
+      <h4 class="label label-below">Stories Completed per Week</h4>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="story-velocity col-md-3 d-flex flex-column">
+      <h1 class="text-stat"><%= @pivotal_data.value['current_story_velocity'].to_f.ceil(2) %></h1>
+      <h5 class="label label-below">Current Story Velocity<br>&nbsp;</h5>
+    </div>
+
+    <div class="weeks-left col-md-3 d-flex flex-column">
+      <h1 class="text-stat"><%= @pivotal_data.value['weeks_to_finish_all_stories'].to_f.ceil(2) %></h1>
+      <h5 class="label label-below">Weeks to Finish<br>&nbsp;</h5>
+    </div>
+
+    <div class="story-velocity-alt col-md-3 d-flex flex-column">
+      <h1 class="text-stat"><%= @pivotal_data.value['current_story_velocity_alt'].to_f.ceil(2) %></h1>
+      <h5 class="label label-below">Current Story Velocity<br>(Alternate Method)</h5>
+    </div>
+
+    <div class="weeks-left-alt col-md-3 d-flex flex-column">
+      <h1 class="text-stat"><%= @pivotal_data.value['weeks_to_finish_all_stories_alt'].to_f.ceil(2) %></h1>
+      <h5 class="label label-below">Weeks to Finish<br>(Alternate Method)</h5>
+    </div>
+  </div>
+</section>
+
+<section class="github-stats">
+  <div class="row space-evenly">
+    <div class="commits-per-week col-md-4">
+      <div class="chart-container">
+        <canvas id="commits_per_week_chart" height="250" width="250">
+        </canvas>
+      </div>
+      <h4 class="label label-below">Commits per Week</h4>
+    </div>
+
+    <div class="delta-per-week col-md-4">
+      <div class="chart-container">
+        <canvas id="delta_per_week_chart" height="250" width="250">
+        </canvas>
+      </div>
+      <h4 class="label label-below">Code Delta per Week</h4>
+    </div>
+  </div>
+
+  <div class="row space-evenly">
+    <div class="total-commits col-md-4 d-flex flex-column">
+      <h1 class="text-stat"><%= JSON.parse(@github_data.value['commit_activity_data']).collect { |e| e['total'] }.sum %></h1>
+      <h4 class="label label-below">Total Commits</h4>
+    </div>
+
+    <div class="total-commits col-md-4 d-flex flex-column">
+      <h1 class="text-stat"><span class="additions">+<%= JSON.parse(@github_data.value['code_frequency_data']).first.sum %></span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class="deletions"><%= JSON.parse(@github_data.value['code_frequency_data']).last.sum %></span></h1>
+      <h4 class="label label-below">Total Delta</h4>
+    </div>
+  </div>
+
+  <div class="row space-evenly">
+    <div class="punchcard col-md-8">
+      <div class="chart-container">
+        <div id="punchcard_chart"></div>
+      </div>
+      <h4 class="label label-below">When We Work (Local Time)</h4>
+    </div>
+  </div>
+
+  <div class="row space-evenly">
+    <div class="recent-commits col-md-12">
+      <h4 class="label">Recent Commits</h4>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Hash Prefix</th>
+            <th>Author</th>
+            <th>Date</th>
+            <th>Message</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% JSON.parse(@github_data.value['first_five_commits']).each do |commit| %>
+            <tr>
+              <td><%= commit['sha'][0..4] %></td>
+              <td>by <%= commit['commit']['author']['name'] %></td>
+              <td>on <%= DateTime.parse(commit['commit']['author']['date']).strftime('%b %e, %Y') %></td>
+              <td><%= commit['commit']['message'].html_safe %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<footer class="row d-flex flex-column align-items-center">
+  <p class="text-center">This site is open source and <a href="https://github.com/tradeio/hows-it-coming">available on our GitHub page</a>.  Data is automatically updated daily.</p>
+  <p>&copy; <%= DateTime.now.strftime('%Y') %> Trade.io.  All rights reserved.</p>
+</footer>
+
+<script>
+  var defaultDoughnutOptions = {
+    legend: {
+      labels: {
+        fontColor: 'hsl(0, 0%, 96%)'
+      }
+    }
+  }
+  var defaultLineOptions = {
+    legend: {
+      display: false
+    },
+    scales: {
+      xAxes: [{
+        display: false
+      }],
+      yAxes: [{
+        display: false,
+        ticks: {
+          min: 0,
+          suggestedMax: 12
+        }
+      }]
+    }
+  }
+
+  var storiesBreakdownChartElement = $("#stories_breakdown_chart");
+  var storiesPerWeekElement = $("#stories_per_week_chart")
+  var commitsPerWeekElement = $("#commits_per_week_chart")
+  var deltaPerWeekElement = $("#delta_per_week_chart")
+
+  var storiesBreakdownChart = new Chart(storiesBreakdownChartElement, {
+    type: 'doughnut',
+    options: defaultDoughnutOptions,
+    data: {
+      labels: ["Complete", "In Progress", "Not Started"],
+      datasets: [{
+        data: [
+          <%= @pivotal_data.value['current_stories_complete'].to_i %>,
+          <%= @pivotal_data.value['current_stories_in_progress'].to_i %>,
+          <%= @pivotal_data.value['current_stories_left'].to_i %>
+        ],
+        backgroundColor: [
+          'hsla(0, 0%, 96%, 1)',
+          'hsla(0, 0%, 96%, 0.7)',
+          'hsla(0, 0%, 96%, 0.4)'
+        ],
+        borderWidth: [0, 0, 0]
+      }]
+    }
+  });
+
+  var storiesPerWeekChart = new Chart(storiesPerWeekElement, {
+    type: 'line',
+    options: defaultLineOptions,
+    data: {
+      labels: <%== Array(1..JSON.parse(@pivotal_data.value['stories_per_iteration']).length).map(&:to_s) %>,
+      datasets: [{
+        label: '',
+        data: <%= @pivotal_data.value['stories_per_iteration'] %>,
+        borderColor: 'hsla(0, 0%, 96%, 1)',
+        backgroundColor: 'hsla(0, 0%, 96%, 0.2)'
+      }]
+    }
+  });
+
+  var commitsPerWeekChart = new Chart(commitsPerWeekElement, {
+    type: 'line',
+    options: defaultLineOptions,
+    data: {
+      labels: <%== Array(1..JSON.parse(@github_data.value['commit_activity_data']).length).map(&:to_s) %>,
+      datasets: [{
+        label: '',
+        data: <%= JSON.parse(@github_data.value['commit_activity_data']).map { |e| e['total']}.to_json %>,
+        borderColor: 'hsla(0, 0%, 96%, 1)',
+        backgroundColor: 'hsla(0, 0%, 96%, 0.2)'
+      }]
+    }
+  });
+
+  var deltaPerWeekChart = new Chart(deltaPerWeekElement, {
+    type: 'line',
+    options: {
+      legend: {
+        display: false
+      },
+      scales: {
+        xAxes: [{
+          display: false
+        }],
+        yAxes: [{
+          display: false,
+          ticks: {
+            suggestedMin: 25000,
+            suggestedMax: 50000
+          }
+        }]
+      }
+    },
+    data: {
+      labels: <%== Array(1..JSON.parse(@github_data.value['commit_activity_data']).length).map(&:to_s) %>,
+      datasets: [
+        {
+          label: '',
+          data: <%= JSON.parse(@github_data.value['code_frequency_data']).first.to_json %>,
+          borderColor: 'hsla(131, 38%, 51%, 1)',
+          backgroundColor: 'hsla(131, 38%, 51%, 0.2)'
+        },
+        {
+          label: '',
+          data: <%= JSON.parse(@github_data.value['code_frequency_data']).last.to_json %>,
+          borderColor: 'hsla(0, 38%, 51%, 1)',
+          backgroundColor: 'hsla(0, 38%, 51%, 0.2)'
+        }
+      ]
+    }
+  });
+
+  var punchcardChart = punchcard({
+    target: "#punchcard_chart"
+  });
+
+  punchcardChart.render(<%== @github_data.value['punch_card_raw_data']%>);
+</script>

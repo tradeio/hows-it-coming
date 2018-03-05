@@ -39,7 +39,7 @@ class UpdatePivotalTrackerDataJob < ApplicationJob
     current_stories_complete = pivotal_history_data['counts_accepted'] + pivotal_history_data['counts_delivered'] + pivotal_history_data['counts_finished']
     current_stories_in_progress = pivotal_history_data['counts_started']
     current_stories_left = pivotal_history_data['counts_planned'] + pivotal_history_data['counts_unstarted'] + pivotal_history_data['counts_unscheduled']
-    current_stories_percent_complete = ((current_stories_complete.to_f / (current_stories_left.to_f + current_stories_in_progress.to_f)) * 100).ceil
+    current_stories_percent_complete = ((current_stories_complete.to_f / (current_stories_left.to_f + current_stories_in_progress.to_f + current_stories_complete.to_f)) * 100).ceil
 
     current_points_velocity = current_points_complete / project_response.parsed_response['velocity_averaged_over']
 

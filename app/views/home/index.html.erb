@@ -33,7 +33,7 @@
   <div class="row">
     <div class="pivotal-percent-complete col-md-8">
       <div class="progress">
-        <div class="progress-bar" role="progressbar" style="width: <%= @pivotal_data.value['current_stories_percent_complete'] %>%" aria-valuenow="<%= @pivotal_data.value['current_stories_percent_complete'] %>" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-bar" role="progressbar" style="width: <%= @percent_complete %>%" aria-valuenow="<%= @percent_complete %>" aria-valuemin="0" aria-valuemax="100">
         </div>
       </div>
       <h4 class="label label-below">Approximate Percent Complete</h4>
@@ -44,49 +44,35 @@
       <h4 class="label label-below">Planned Release Date</h4>
     </div>
   </div>
-
-  <div class="row space-evenly">
-    <div class="stories-breakdown col-md-4">
-      <div class="chart-container">
-        <canvas id="stories_breakdown_chart" height="250" width="250">
-        </canvas>
-      </div>
-      <h4 class="label label-below">Stories (To-do Items)</h4>
-    </div>
-
-    <div class="stories-per-week col-md-4">
-      <div class="chart-container">
-        <canvas id="stories_per_week_chart" height="250" width="250">
-        </canvas>
-      </div>
-      <h4 class="label label-below">Stories Completed per Week</h4>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="story-velocity col-md-3 d-flex flex-column">
-      <h1 class="text-stat"><%= @pivotal_data.value['current_story_velocity'].to_f.ceil(2) %></h1>
-      <h5 class="label label-below">Current Story Velocity<br>&nbsp;</h5>
-    </div>
-
-    <div class="weeks-left col-md-3 d-flex flex-column">
-      <h1 class="text-stat"><%= @pivotal_data.value['weeks_to_finish_all_stories'].to_f.ceil(2) %></h1>
-      <h5 class="label label-below">Weeks to Finish<br>&nbsp;</h5>
-    </div>
-
-    <div class="story-velocity-alt col-md-3 d-flex flex-column">
-      <h1 class="text-stat"><%= @pivotal_data.value['current_story_velocity_alt'].to_f.ceil(2) %></h1>
-      <h5 class="label label-below">Current Story Velocity<br>(Alternate Method)</h5>
-    </div>
-
-    <div class="weeks-left-alt col-md-3 d-flex flex-column">
-      <h1 class="text-stat"><%= @pivotal_data.value['weeks_to_finish_all_stories_alt'].to_f.ceil(2) %></h1>
-      <h5 class="label label-below">Weeks to Finish<br>(Alternate Method)</h5>
-    </div>
-  </div>
 </section>
 
 <section class="github-stats">
+  <div class="row space-evenly">
+    <div class="recent-commits col-md-12">
+      <h4 class="label">Recent Commits</h4>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Hash Prefix</th>
+            <th>Author</th>
+            <th>Date</th>
+            <th>Message</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% JSON.parse(@github_data.value['first_five_commits']).each do |commit| %>
+            <tr>
+              <td><%= commit['sha'][0..4] %></td>
+              <td>by <%= commit['commit']['author']['name'] %></td>
+              <td>on <%= DateTime.parse(commit['commit']['author']['date']).strftime('%b %e, %Y') %></td>
+              <td><%= commit['commit']['message'].html_safe %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
   <div class="row space-evenly">
     <div class="commits-per-week col-md-4">
       <div class="chart-container">
@@ -123,32 +109,6 @@
         <div id="punchcard_chart"></div>
       </div>
       <h4 class="label label-below">When We Work (Local Time)</h4>
-    </div>
-  </div>
-
-  <div class="row space-evenly">
-    <div class="recent-commits col-md-12">
-      <h4 class="label">Recent Commits</h4>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Hash Prefix</th>
-            <th>Author</th>
-            <th>Date</th>
-            <th>Message</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% JSON.parse(@github_data.value['first_five_commits']).each do |commit| %>
-            <tr>
-              <td><%= commit['sha'][0..4] %></td>
-              <td>by <%= commit['commit']['author']['name'] %></td>
-              <td>on <%= DateTime.parse(commit['commit']['author']['date']).strftime('%b %e, %Y') %></td>
-              <td><%= commit['commit']['message'].html_safe %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
     </div>
   </div>
 </section>

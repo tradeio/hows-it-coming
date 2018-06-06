@@ -8,6 +8,8 @@ class HomeController < ApplicationController
     total_days = ((Date.parse('June 29, 2018') - Date.parse('January 6, 2018')).to_int)
     days_left = ((Date.parse('June 29, 2018') - Date.today).to_int)
     days_passed = total_days - days_left
+    # Another workaround because we don't have ability to integrate with
+    # project management velocity tracking
     @percent_complete = ( (days_passed.to_f / total_days.to_f) * 100 ).to_i
     if @percent_complete > 99
       @percent_complete = 99

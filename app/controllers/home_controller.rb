@@ -10,7 +10,7 @@ class HomeController < ApplicationController
     days_passed = total_days - days_left
     @percent_complete = ( (days_passed.to_f / total_days.to_f) * 100 ).to_i
     if @percent_complete > 99
-      @percent_complete = 99.5
+      @percent_complete = 99
     end
   end
 end

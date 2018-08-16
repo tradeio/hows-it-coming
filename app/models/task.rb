@@ -1,5 +1,5 @@
 class Task < ApplicationRecord
-  default_scope { order(priority: :desc, created_at: :desc) }
+  default_scope { order(priority: :asc, created_at: :desc) }
   scope :backlog, -> { where(status: :backlog) }
   scope :in_progress, -> { where(status: :in_progress) }
   scope :review, -> { where(status: :review) }

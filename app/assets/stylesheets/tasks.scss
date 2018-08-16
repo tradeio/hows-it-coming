@@ -1,0 +1,26 @@
+// Place all the styles related to the Tasks controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.task-card {
+  padding: 1rem;
+  margin: 0;
+  margin-bottom: 1rem;
+  background: hsl(0, 0%, 92%);
+  border-radius: 8px;
+  box-shadow: 0 4px 5px hsla(0, 0%, 20%, 0.5);
+  color: hsl(0, 0%, 15%);
+
+  .task-name {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .task-updated-at {
+    opacity: 0.5;
+    display: block;
+    margin: 0;
+  }
+}

@@ -13,11 +13,11 @@ class Task < ApplicationRecord
   }
 
   def self.changelog(limit: nil)
-    tasks = self.deployed.order(created_at: :desc).limit(limit)
+    tasks = self.deployed.order(updated_at: :desc).limit(limit)
     changelog = {}
 
     tasks.each do |t|
-      date = t.created_at.strftime('%B %-d, %Y')
+      date = t.updated_at.strftime('%B %-d, %Y')
       if (changelog.keys.include?(date))
         changelog[date] << t
       else

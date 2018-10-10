@@ -17,7 +17,7 @@ class Task < ApplicationRecord
     changelog = {}
 
     tasks.each do |t|
-      date = t.updated_at.strftime('%B %-d, %Y')
+      date = t.updated_at.beginning_of_day
       if (changelog.keys.include?(date))
         changelog[date] << t
       else
@@ -25,6 +25,6 @@ class Task < ApplicationRecord
       end
     end
 
-    changelog
+    changelog.sort.reverse
   end
 end

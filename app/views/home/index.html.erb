@@ -44,7 +44,7 @@
     <% @changelog.each do |date, tasks| %>
       <div class="row changelog-group">
         <div class="col-sm-12">
-          <h4 class="changelog-date"><%= date %></h4>
+          <h4 class="changelog-date"><%= date.strftime('%B %-d, %Y') %></h4>
           <% tasks.reverse.each do |task| %>
             <p class="changelog-entry">
               <%= task.name %>
